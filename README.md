@@ -13,7 +13,7 @@ A brief descriptive analysis was provided as a blogpost on the COKI website.
 **The repository contains the following content:**  
 Data:  
 - [data/scholarcy/RIS/](data/scholarcy/RIS/) - extracted references as RIS files  
-- [data/scholarcy/BibTeX/](data/scholarcy/BibTeX/)  - extracted references as BibTeX files  
+- [data/scholarcy/BibTeX/](data/scholarcy/BibTex/)  - extracted references as BibTeX files  
 - [IPCC_AR6_WGII_dois.csv](data/IPCC_AR6_WGII_dois.csv) - list of DOIs
 
 Processing:  
