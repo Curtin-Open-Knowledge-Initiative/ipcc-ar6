@@ -1,0 +1,18 @@
+Preprocessing
+
+References were extracted from the report's PDFs (downloaded 2022-03-01) via Scholarcy and exported as RIS files.
+From these, DOI strings were identified by pattern matching. As not all reference information was processed correctly, DOIs were extracted from all fields, rather than just the DO field in the RIS files. 
+
+Data cleaning was done as follows:
+1) From each RIS file, all TY fields were extracted to assess the number of split records and determine assigned publication types
+2) From each RIS file, all DO fields and fields containing the string 'doi' were extracted to collect all dois
+3) After removal of url-strings 'https://doi.org/' and 'http://dx.doi.org/', individual dois were identified as strings starting with '10.' at the beginning of the line or after a whitespace,
+and ending at a whitespace or the end of the line. Trailing periods, comma's, colons and semicolons were removed from identified DOI strings. "
+4) DOI strings consisting of only a DOI prefix (e.g. '10.1002' or '10.1002/') or of a prefix with only one character in the doi suffix (e.g.  '10.1002/J') were removed. 
+All other parts of the DOI strings were left as is, meaning that the list of cleaned DOIs can still contain incomplete or otherwise invalid DOIs. "
+
+In total, 41,808 RIS records were extracted by Scholarcy. Some references were found to be split over multiple records, while other records contained information from multiple records. 
+Counting all records with TY  - GEN as split records,the total number of references extracted is at least 28,515 references.
+
+In total, 21,805 DOIs were identified after cleaning, without deduplication. 
+Coverage of DOIs across chapters varies greatly, with some chapters having DOIs for almost all references, and other chapters (e.g. Chapter 6) lacking DOIs almost all together. 
