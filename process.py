@@ -4,7 +4,7 @@ from pathlib import Path
 
 from google.cloud import bigquery
 
-INPUT_DOIS = Path('data') / 'scholarcy' / 'IPCC_AR6_WGII_dois.xlsx'
+INPUT_DOIS = Path('data') / 'IPCC_AR6_WGII_dois.csv'
 
 
 def process_dois():
@@ -14,18 +14,16 @@ def process_dois():
     :return: pd.DataFrame df containing the DOIs by chapter
     """
 
-    df = pd.read_excel(INPUT_DOIS,
-                       sheet_name='DOIs clean',
-                       dtype=str,
-                       na_filter=False)
-    all_dois = list(np.unique(df))
-    all_dois.remove('')
+    df = pd.read_csv(INPUT_DOIS)
+    all_dois = list(np.unique(df.dois))
 
-    bq_df = pd.DataFrame(columns=['doi'].extend(df.columns))
+    chapters = list(set(df.Report_part.values))
+    chapters.sort()
+    bq_df = pd.DataFrame(columns=['doi'].extend(chapters))
     bq_df['doi'] = all_dois
 
-    for col in df.columns:
-        bq_df[col] = bq_df['doi'].isin(df[col])
+    for chapter in chapters:
+        bq_df[chapter] = bq_df['doi'].isin(df[df.Report_part==chapter]['dois'])
 
     bq_df.to_csv('ipcc.csv')
     bq_df.to_gbq(destination_table='ipcc_ar6.ipcc_ar6_dois',
