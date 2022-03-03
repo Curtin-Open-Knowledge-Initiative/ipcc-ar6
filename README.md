@@ -10,7 +10,8 @@ We used the main object table of the Academic Observatory, which combines inform
 A brief descriptive analysis was provided as a blogpost on the COKI website. 
 
 
-**The repository contains the following content:**  
+**The repository contains the following content:**
+
 Data:  
 - [data/scholarcy/RIS/](data/scholarcy/RIS/) - extracted references as RIS files  
 - [data/scholarcy/BibTeX/](data/scholarcy/BibTex/)  - extracted references as BibTeX files  
