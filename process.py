@@ -2,7 +2,10 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
+from google.cloud import bigquery
+
 INPUT_DOIS = Path('data') / 'scholarcy' / 'IPCC_AR6_WGII_dois.xlsx'
+
 
 def process_dois():
     """
@@ -32,7 +35,6 @@ def process_dois():
 
 
 def generate_doi_table():
-
     query = """
 SELECT 
     UPPER(TRIM(i.doi)) as ipcc_doi,
@@ -81,15 +83,15 @@ FROM
 """
 
     with bigquery.Client() as client:
-        job_config = bigquery.QueryJobConfig(destination=SOURCE_TRUTH_TABLES[source],
+        job_config = bigquery.QueryJobConfig(destination='utrecht-university.ipcc_arc6.doi_table',
                                              create_disposition='CREATE_IF_NEEDED',
                                              write_disposition='WRITE_TRUNCATE')
 
         query_job = client.query(query, job_config=job_config)  # Make an API request.
         query_job.result()  # Wait for the job to complete.
 
-    if verbose:
-        print('...completed')
+    print('...completed')
+
 
 if __name__ == '__main__':
     df = process_dois()
