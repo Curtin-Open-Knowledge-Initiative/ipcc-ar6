@@ -19,6 +19,7 @@ def process_dois():
 
     chapters = list(set(df.Report_part.values))
     chapters.sort()
+    chapters = [c.replace('-', '_') for c in chapters]
     bq_df = pd.DataFrame(columns=['doi'].extend(chapters))
     bq_df['doi'] = all_dois
 
@@ -48,7 +49,7 @@ SELECT
     unpaywall.*,
     i.* EXCEPT(doi),
     (SELECT ARRAY_AGG(x IGNORE NULLS) FROM UNNEST([
-      IF(Chapter01, "Chapter 01", null),
+      -- IF(Chapter01, "Chapter 01", null),
       IF(Chapter02, "Chapter 02", null),
       IF(Chapter03, "Chapter 03", null),
       IF(Chapter04, "Chapter 04", null),
@@ -81,7 +82,7 @@ FROM
 """
 
     with bigquery.Client() as client:
-        job_config = bigquery.QueryJobConfig(destination='utrecht-university.ipcc_arc6.doi_table',
+        job_config = bigquery.QueryJobConfig(destination='utrecht-university.ipcc_ar6.doi_table',
                                              create_disposition='CREATE_IF_NEEDED',
                                              write_disposition='WRITE_TRUNCATE')
 

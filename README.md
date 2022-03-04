@@ -22,10 +22,10 @@ Processing:
 - [process.py](process.py) - Python script for transforming data and linking to COKI data through Google Big Query
 
 Outcomes: [to add]  
-- dataset?  
+- dataset (Zenodo)?
 - blogpost as pdf?  
-- link to GBQ table?  
-- link to dashboard? 
+- [https://console.cloud.google.com/bigquery?project=utrecht-university&ws=!1m23!1m3!8m2!1s145441926252!2sd59dfac7972a45f8a2f5ee4ac866c34d!1m4!4m3!1sacademic-observatory!2sobservatory!3sdoi20220226!1m4!4m3!1sutrecht-university!2sipcc_ar6!3sdoi_table!1m3!3m2!1sutrecht-university!2sipcc_ar6!1m4!4m3!1sutrecht-university!2sipcc_ar6!3sipcc_ar6_dois&d=ipcc_ar6&p=utrecht-university&page=table&t=doi_table&pli=1&authuser=1](Dataset on BigQuery) - Requires a google account for access and bigquery account for querying  
+- [https://datastudio.google.com/s/iVmaM6huxgk](Data Studio Dashboard) - Interactive analysis of the generated data
 
 
 **Note on licenses:**
