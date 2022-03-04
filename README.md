@@ -7,7 +7,7 @@ References were extracted from the report's PDFs (downloaded 2022-03-01) via [Sc
 
 We used the main object table of the Academic Observatory, which combines information from Crossref, Unpaywall, Microsoft Academic, Open Citations, the Research Organization Registry and Geonames to enrich the DOIs with bibliographic information, affiliations, and open access status. A custom query was used to join and format the data and the resulting table was visualised in a Google DataStudio dashboard.
 
-A brief descriptive analysis was provided as a [blogpost on the COKI website[(https://openknowledge.community/tracking-climate-change-openaccess/). 
+A brief descriptive analysis was provided as a [blogpost on the COKI website](https://openknowledge.community/tracking-climate-change-openaccess/). 
 
 
 **The repository contains the following content:**
