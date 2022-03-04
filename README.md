@@ -1,7 +1,7 @@
 # Analysis of references in the IPCC AR6 WG2 Report of 2022
 
 ## Description
-This repository contains data on 17,564 DOIs cited in the [IPCC Working Group 2 contribution to the Sixth Assessment Report](https://www.ipcc.ch/report/ar6/wg2/), and the code to link them to the dataset built at the Curtin Open Knowledge Initiative (COKI).
+This repository contains data on 17,420 DOIs cited in the [IPCC Working Group 2 contribution to the Sixth Assessment Report](https://www.ipcc.ch/report/ar6/wg2/), and the code to link them to the dataset built at the Curtin Open Knowledge Initiative (COKI).
 
 References were extracted from the report's PDFs (downloaded 2022-03-01) via [Scholarcy](https://www.scholarcy.com/) and exported as RIS and BibTeX files. DOI strings were identified from RIS files by pattern matching and saved as CSV file. The list of DOIs for each chapter and cross chapter paper was processed using a custom Python script to generate a pandas DataFrame which was saved as CSV file and uploaded to Google Big Query.
 
