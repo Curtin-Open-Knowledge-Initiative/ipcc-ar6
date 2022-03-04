@@ -24,13 +24,13 @@ Processing:
 Outcomes:  
 - [Dataset on BigQuery](https://console.cloud.google.com/bigquery?project=utrecht-university&ws=!1m23!1m3!8m2!1s145441926252!2sd59dfac7972a45f8a2f5ee4ac866c34d!1m4!4m3!1sacademic-observatory!2sobservatory!3sdoi20220226!1m4!4m3!1sutrecht-university!2sipcc_ar6!3sdoi_table!1m3!3m2!1sutrecht-university!2sipcc_ar6!1m4!4m3!1sutrecht-university!2sipcc_ar6!3sipcc_ar6_dois&d=ipcc_ar6&p=utrecht-university&page=table&t=doi_table&pli=1&authuser=1) - requires a google account for access and bigquery account for querying  
 - [Data Studio Dashboard](https://datastudio.google.com/s/iVmaM6huxgk) - interactive analysis of the generated data
-- [PDF version of blpgpost]()
+- [PDF version of blpgpost]() - **TO ADD**
 
 
 **Note on licenses:**   
 Data are made available under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 
-**Archived version of this repositoy on Zenodo:**
+**Archived version of this repositoy on Zenodo:**  
 [doi: 10.5281/zenodo.6327207](https:/doi.org/10.5281/zenodo.6327207)
 
 
