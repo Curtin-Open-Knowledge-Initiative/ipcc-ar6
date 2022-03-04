@@ -26,7 +26,7 @@ def process_dois():
     for chapter in chapters:
         bq_df[chapter] = bq_df['doi'].isin(df[df.Report_part==chapter]['dois'])
 
-    bq_df.to_csv('ipcc.csv')
+    #bq_df.to_csv('ipcc.csv')
     bq_df.to_gbq(destination_table='ipcc_ar6.ipcc_ar6_dois',
                  project_id='utrecht-university',
                  if_exists='replace')
