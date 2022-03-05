@@ -1,10 +1,13 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
+import json
 
 from google.cloud import bigquery
 
-INPUT_DOIS = Path('data') / 'IPCC_AR6_WGII_dois.csv'
+WG1_INPUT_DOI_FOLDER = Path('data') / '10.5281_zenodo.5475442' / 'vers_1' / 'json_files'
+WG1_FILES = ['ipcc_6_refs_assessmentreport_wg1.json'] #, 'ipcc_6_refs_specialreports.json']
+WG2_INPUT_DOIS = Path('data') / 'IPCC_AR6_WGII_dois.csv'
 
 
 def process_dois():
@@ -14,20 +17,40 @@ def process_dois():
     :return: pd.DataFrame df containing the DOIs by chapter
     """
 
-    df = pd.read_csv(INPUT_DOIS)
-    all_dois = list(np.unique(df.dois))
+    wg1 = pd.DataFrame()
+    for f in WG1_FILES:
+        with open(WG1_INPUT_DOI_FOLDER / f) as fp:
+            data = json.load(fp)
+            df = pd.DataFrame(data['data'])
+            df['Report_part'] = df.report_section.str[13:]
+            df['dois'] = df['id_doi']
+            df['working_group'] = ['WG1'] * len(df)
+            df['release_year'] = [2021] * len(df)
+            df['annual_report'] = ['AR6'] * len(df)
+            df['report_title'] = ['Climate Change 2021: The Physical Science Basis'] * len(df)
+            wg1 = wg1.append(df[['Report_part', 'dois', 'working_group', 'release_year', 'annual_report', 'report_title']])
 
-    chapters = list(set(df.Report_part.values))
-    chapters.sort()
-    chapters = [c.replace('-', '_') for c in chapters]
-    bq_df = pd.DataFrame(columns=['doi'].extend(chapters))
-    bq_df['doi'] = all_dois
+    wg2 = pd.read_csv(WG2_INPUT_DOIS)
+    wg2['working_group'] = ['WG2'] * len(wg2)
+    wg2['release_year'] = [2022] * len(wg2)
+    wg2['annual_report'] = ['AR6'] * len(wg2)
+    wg2['report_title'] = ['Climate Change 2022: Impacts, Adaptation and Vulnerability'] * len(wg2)
 
-    for chapter in chapters:
-        bq_df[chapter] = bq_df['doi'].isin(df[df.Report_part==chapter]['dois'])
+    bq_df = wg1.append(wg2, ignore_index=True)
+
+    # all_dois = list(np.unique(df.dois))
+    #
+    # chapters = list(set(df.Report_part.values))
+    # chapters.sort()
+    # chapters = [c.replace('-', '_') for c in chapters]
+    # bq_df = pd.DataFrame(columns=['doi'].extend(chapters))
+    # bq_df['doi'] = all_dois
+    #
+    # for chapter in chapters:
+    #     bq_df[chapter] = bq_df['doi'].isin(df[df.Report_part==chapter]['dois'])
 
     #bq_df.to_csv('ipcc.csv')
-    bq_df.to_gbq(destination_table='ipcc_ar6.ipcc_ar6_dois',
+    bq_df.to_gbq(destination_table='ipcc_ar6.ipcc_ar6_combined_dois',
                  project_id='utrecht-university',
                  if_exists='replace')
     return bq_df
@@ -47,42 +70,15 @@ SELECT
     affiliations.countries,
     affiliations.funders,
     unpaywall.*,
-    i.* EXCEPT(doi),
-    (SELECT ARRAY_AGG(x IGNORE NULLS) FROM UNNEST([
-      -- IF(Chapter01, "Chapter 01", null),
-      IF(Chapter02, "Chapter 02", null),
-      IF(Chapter03, "Chapter 03", null),
-      IF(Chapter04, "Chapter 04", null),
-      IF(Chapter05, "Chapter 05", null),
-      IF(Chapter06, "Chapter 06", null),
-      IF(Chapter07, "Chapter 07", null),
-      IF(Chapter08, "Chapter 08", null),
-      IF(Chapter09, "Chapter 09", null),
-      IF(Chapter10, "Chapter 10", null),
-      IF(Chapter11, "Chapter 11", null),
-      IF(Chapter12, "Chapter 12", null),
-      IF(Chapter13, "Chapter 13", null),
-      IF(Chapter14, "Chapter 14", null),
-      IF(Chapter15, "Chapter 15", null),
-      IF(Chapter16, "Chapter 16", null),
-      IF(Chapter17, "Chapter 17", null),
-      IF(Chapter18, "Chapter 18", null),
-      IF(Cross_Chapter_Paper01, "Cross Chapter Paper 1", null),
-      IF(Cross_Chapter_Paper02, "Cross Chapter Paper 2", null),
-      IF(Cross_Chapter_Paper03, "Cross Chapter Paper 3", null),
-      IF(Cross_Chapter_Paper04, "Cross Chapter Paper 4", null),
-      IF(Cross_Chapter_Paper05, "Cross Chapter Paper 5", null),
-      IF(Cross_Chapter_Paper06, "Cross Chapter Paper 6", null),
-      IF(Cross_Chapter_Paper07, "Cross Chapter Paper 7", null)
-     ]) x) as chapters      
+    i.*      
 
 FROM 
-    `utrecht-university.ipcc_ar6.ipcc_ar6_dois` as i 
+    `utrecht-university.ipcc_ar6.ipcc_ar6_combined_dois` as i 
     LEFT OUTER JOIN `academic-observatory.observatory.doi20220226` as d on UPPER(TRIM(d.doi))=UPPER(TRIM(i.doi))
 """
 
     with bigquery.Client() as client:
-        job_config = bigquery.QueryJobConfig(destination='utrecht-university.ipcc_ar6.doi_table',
+        job_config = bigquery.QueryJobConfig(destination='utrecht-university.ipcc_ar6.combined_doi_table',
                                              create_disposition='CREATE_IF_NEEDED',
                                              write_disposition='WRITE_TRUNCATE')
 
