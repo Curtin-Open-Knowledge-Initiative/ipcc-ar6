@@ -23,7 +23,7 @@ df <- rd.files %>%
 rm(path, rd.files, rd.names)
 
 # Extract DOIs
-df_processed <- df %>%
+df <- df %>%
   # select all lines with field DO or string 'doi'
   filter(str_detect(RIS, 'DO  - |doi')) %>%
   filter(str_detect(RIS, '10\\.')) %>%
@@ -38,7 +38,7 @@ df_processed <- df %>%
 
 
 # Clean DOIs
-df_processed2 <- df_processed %>%
+df <- df %>%
   #remove everything before first '10.' to get rid of url prefixes
   mutate(RIS = str_replace(RIS, '^.*?10\\.', '10\\.')) %>%
   # remove single trailing punctuation marks
@@ -49,4 +49,4 @@ df_processed2 <- df_processed %>%
   filter(!str_detect(RIS, '^[^\\/]*\\/.$'))
 
   
-  
+#TODO Count does not fully match previous semi-automated preprocessing -> check pending 
