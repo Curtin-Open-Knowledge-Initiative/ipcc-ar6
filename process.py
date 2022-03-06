@@ -59,7 +59,7 @@ def process_dois():
 def generate_doi_table():
     query = """
 SELECT 
-    UPPER(TRIM(i.doi)) as ipcc_doi,
+    UPPER(TRIM(i.dois)) as ipcc_doi,
     UPPER(TRIM(d.doi)) as crossref_doi,
     IF(d.doi is null, TRUE, FALSE) as unmatched_doi,
     crossref.published_year,
@@ -74,7 +74,7 @@ SELECT
 
 FROM 
     `utrecht-university.ipcc_ar6.ipcc_ar6_combined_dois` as i 
-    LEFT OUTER JOIN `academic-observatory.observatory.doi20220226` as d on UPPER(TRIM(d.doi))=UPPER(TRIM(i.doi))
+    LEFT OUTER JOIN `academic-observatory.observatory.doi20220226` as d on UPPER(TRIM(d.doi))=UPPER(TRIM(i.dois))
 """
 
     with bigquery.Client() as client:
@@ -89,5 +89,5 @@ FROM
 
 
 if __name__ == '__main__':
-    df = process_dois()
+    # df = process_dois()
     generate_doi_table()
