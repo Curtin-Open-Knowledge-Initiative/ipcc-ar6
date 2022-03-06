@@ -1,9 +1,13 @@
 # Analysis of references in the IPCC AR6 WG2 Report of 2022
 
 ## Description
-This repository contains data on 17,420 DOIs cited in the [IPCC Working Group 2 contribution to the Sixth Assessment Report](https://www.ipcc.ch/report/ar6/wg2/), and the code to link them to the dataset built at the Curtin Open Knowledge Initiative (COKI).
+This repository contains data on 17,419 DOIs cited in the [IPCC Working Group 2 contribution to the Sixth Assessment Report](https://www.ipcc.ch/report/ar6/wg2/), and the code to link them to the dataset built at the Curtin Open Knowledge Initiative (COKI).
 
-References were extracted from the report's PDFs (downloaded 2022-03-01) via [Scholarcy](https://www.scholarcy.com/) and exported as RIS and BibTeX files. DOI strings were identified from RIS files by pattern matching and saved as CSV file. The list of DOIs for each chapter and cross chapter paper was processed using a custom Python script to generate a pandas DataFrame which was saved as CSV file and uploaded to Google Big Query.
+References were extracted from the report's PDFs (downloaded 2022-03-01) via [Scholarcy](https://www.scholarcy.com/) and exported as RIS and BibTeX files. DOI strings were identified from RIS files by pattern matching and saved as CSV file. 
+
+As not all reference information was processed correctly, DOIs were extracted from all fields, rather than just the DO field in the RIS files. The list of cleaned DOIs can still contain incomplete or otherwise invalid DOIs. Coverage of DOIs across chapters varies greatly, with some chapters having DOIs for almost all references, and other chapters lacking DOIs almost all together.
+
+The list of DOIs for each chapter and cross chapter paper was processed using a custom Python script to generate a pandas DataFrame which was saved as CSV file and uploaded to Google Big Query.
 
 We used the main object table of the Academic Observatory, which combines information from Crossref, Unpaywall, Microsoft Academic, Open Citations, the Research Organization Registry and Geonames to enrich the DOIs with bibliographic information, affiliations, and open access status. A custom query was used to join and format the data and the resulting table was visualised in a Google DataStudio dashboard.
 
@@ -18,7 +22,7 @@ Data:
 - [IPCC_AR6_WGII_dois.csv](data/IPCC_AR6_WGII_dois.csv) - list of DOIs
 
 Processing:  
-- [preprocessing.txt](preprocessing.txt) - preprocessing steps for identifying and cleaning DOIs  
+- [preprocessing.R](preprocessing.R) - R script for preprocessing: identifying and cleaning DOIs  
 - [process.py](process.py) - Python script for transforming data and linking to COKI data through Google Big Query
 
 Outcomes:  
