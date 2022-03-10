@@ -11,7 +11,7 @@ The list of DOIs for each chapter and cross chapter paper was processed using a 
 
 We used the main object table of the Academic Observatory, which combines information from Crossref, Unpaywall, Microsoft Academic, Open Citations, the Research Organization Registry and Geonames to enrich the DOIs with bibliographic information, affiliations, and open access status. A custom query was used to join and format the data and the resulting table was visualised in a Google DataStudio dashboard.
 
-This version of the repository also includes the set of DOIs from references in the [IPCC Working Group 1 contribution to the Sixth Assessment Report](https://www.ipcc.ch/report/ar6/wg1/) as extracted by Alexis-Michel Mugabushaka and shared on Zenodo: https://doi.org/10.5281/zenodo.5475442
+This version of the repository also includes the set of DOIs from references in the [IPCC Working Group 1 contribution to the Sixth Assessment Report](https://www.ipcc.ch/report/ar6/wg1/) as extracted by Alexis-Michel Mugabushaka and shared on Zenodo: https://doi.org/10.5281/zenodo.5475442 (CC-BY)
 
 A brief descriptive analysis was provided as a [blogpost on the COKI website](https://openknowledge.community/tracking-climate-change-openaccess/). 
 
@@ -36,7 +36,7 @@ Outcomes:
 
 
 **Note on licenses:**   
-Data are made available under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+Data are made available under [CC0](https://creativecommons.org/publicdomain/zero/1.0/), with the exception of WG1 reference data which have been shared under a CC-BY license.
 
 **Archived version of this repositoy on Zenodo:**  
 [doi: 10.5281/zenodo.6327207](https:/doi.org/10.5281/zenodo.6327207)
