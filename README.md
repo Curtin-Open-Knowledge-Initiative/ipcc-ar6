@@ -39,7 +39,7 @@ Outcomes:
 Data are made available under [CC0](https://creativecommons.org/publicdomain/zero/1.0/), with the exception of WG1 reference data which have been shared under a CC-BY license.
 
 **Archived version of this repositoy on Zenodo:**  
-[doi: 10.5281/zenodo.6327207](https:/doi.org/10.5281/zenodo.6327207)
+[doi: 10.5281/zenodo.6344388](https:/doi.org/10.5281/zenodo.6344388)
 
 
 
